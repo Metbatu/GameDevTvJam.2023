@@ -11,7 +11,7 @@ public class Parallax : MonoBehaviour
     public float speed = 0.2f;
     void Start()
     {
-        mat=GetComponent<Renderer>().material;
+        mat = GetComponent<Renderer>().material;
     }
 
     void Update()

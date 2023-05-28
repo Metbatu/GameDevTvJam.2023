@@ -14,12 +14,12 @@ public class MovementController : MonoBehaviour
     private bool isFalling = false;
     private bool hasLanded = false;
     private int jumpsRemaining;
-    private float jumpTime = 0f;
+    private float jumpTime = 0.1f;
 
     // Running variables
-    public float initialSpeed = 5f;
+    public float initialSpeed = 0.5f;
     public float speedIncrement = 0.2f;
-    public float maxSpeed = 10f;
+    public float maxSpeed = 2.0f;
     private Vector2 move;
     private Rigidbody2D rb;
     private float currentSpeed;
@@ -130,26 +130,9 @@ public class MovementController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("SpeedBoost"))
-        {
-            IncreaseSpeed();
-            Destroy(other.gameObject);
-        }
-    }
-
     private void UpdateAnimator()
     {
         animator.SetFloat("Speed", Mathf.Abs(move.x));
         animator.SetBool("IsJumping", isJumping);
-    }
-
-    private void IncreaseSpeed()
-    {
-        if (currentSpeed < maxSpeed)
-        {
-            currentSpeed += speedIncrement;
-        }
     }
 }
