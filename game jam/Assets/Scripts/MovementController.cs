@@ -11,6 +11,8 @@ public class MovementController : MonoBehaviour
     public int maxJumps = 2;
     private bool isJumpButtonPressed = false;
     private bool isJumping = false;
+    private bool isFalling = false;
+    private bool hasLanded = false;
     private int jumpsRemaining;
     private float jumpTime = 0f;
 
@@ -22,36 +24,49 @@ public class MovementController : MonoBehaviour
     private Rigidbody2D rb;
     private float currentSpeed;
 
-    void Start()
+    // Animator
+    private Animator animator;
+
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
         currentSpeed = initialSpeed;
         jumpsRemaining = maxJumps;
     }
 
-    void Update()
+    private void Update()
     {
         HandleInput();
         move = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         flip();
+        UpdateAnimator();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         Move();
         Jump();
     }
 
-    void HandleInput()
+    private void HandleInput()
     {
         if (Input.GetKeyDown(KeyCode.Space) && jumpsRemaining > 0)
         {
             isJumpButtonPressed = true;
-            isJumping = true;
-            jumpTime = Time.time;
-            rb.velocity = new Vector2(rb.velocity.x, 0f);
-            rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
-            jumpsRemaining--;
+            if (jumpsRemaining == maxJumps || hasLanded)
+            {
+                isJumping = true;
+                hasLanded = false;
+                jumpTime = Time.time;
+                rb.velocity = new Vector2(rb.velocity.x, 0f);
+                rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+                jumpsRemaining--;
+            }
         }
 
         if (Input.GetKeyUp(KeyCode.Space))
@@ -60,11 +75,10 @@ public class MovementController : MonoBehaviour
         }
     }
 
-    void Move()
+    private void Move()
     {
         rb.velocity = new Vector2(move.x * currentSpeed, rb.velocity.y);
 
-        // Increase speed gradually until reaching the max speed
         if (currentSpeed < maxSpeed)
         {
             currentSpeed += speedIncrement * Time.fixedDeltaTime;
@@ -72,14 +86,13 @@ public class MovementController : MonoBehaviour
         }
     }
 
-    void Jump()
+    private void Jump()
     {
         if (isJumpButtonPressed && Time.time - jumpTime < jumpHoldDuration)
         {
             rb.AddForce(new Vector2(0f, jumpHoldForce), ForceMode2D.Impulse);
         }
 
-        // Adjust gravity scale for a more responsive jump
         if (rb.velocity.y > 0)
         {
             rb.gravityScale = 2.5f;
@@ -88,35 +101,51 @@ public class MovementController : MonoBehaviour
         {
             rb.gravityScale = 5f;
         }
+
+        if (!isJumpButtonPressed && rb.velocity.y < 0)
+        {
+            isFalling = true;
+        }
     }
 
-    void flip()
+    private void flip()
     {
         if (move.x < -0.01f) transform.localScale = new Vector3(-2.5f, 2.5f, 2.5f);
         if (move.x > 0.01f) transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
             isJumping = false;
             jumpsRemaining = maxJumps;
             currentSpeed = initialSpeed;
+            if (isFalling)
+            {
+                animator.SetTrigger("Land");
+                hasLanded = true;
+                isFalling = false;
+            }
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("SpeedBoost"))
         {
             IncreaseSpeed();
-            // Here you can add any other logic you want to perform when the player collects a speed boost item
-            Destroy(other.gameObject); // Destroy the speed boost item
+            Destroy(other.gameObject);
         }
     }
 
-    void IncreaseSpeed()
+    private void UpdateAnimator()
+    {
+        animator.SetFloat("Speed", Mathf.Abs(move.x));
+        animator.SetBool("IsJumping", isJumping);
+    }
+
+    private void IncreaseSpeed()
     {
         if (currentSpeed < maxSpeed)
         {
