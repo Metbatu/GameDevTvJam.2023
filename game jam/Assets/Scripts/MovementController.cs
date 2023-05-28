@@ -17,9 +17,9 @@ public class MovementController : MonoBehaviour
     private float jumpTime = 0.1f;
 
     // Running variables
-    public float initialSpeed = 0.5f;
-    public float speedIncrement = 0.2f;
-    public float maxSpeed = 2.0f;
+    public float initialSpeed = 3.5f;
+    public float speedIncrement = 2.5f;
+    public float maxSpeed = 8.0f;
     private Vector2 move;
     private Rigidbody2D rb;
     private float currentSpeed;
@@ -45,11 +45,11 @@ public class MovementController : MonoBehaviour
         move = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         flip();
         UpdateAnimator();
+        Move(); // Call Move() from Update()
     }
 
     private void FixedUpdate()
     {
-        Move();
         Jump();
     }
 
@@ -77,13 +77,22 @@ public class MovementController : MonoBehaviour
 
     private void Move()
     {
-        rb.velocity = new Vector2(move.x * currentSpeed, rb.velocity.y);
+        float targetSpeed = move.x * maxSpeed;
 
-        if (currentSpeed < maxSpeed)
+        // Gradually increase speed if not reached the target speed
+        if (currentSpeed < targetSpeed)
         {
-            currentSpeed += speedIncrement * Time.fixedDeltaTime;
-            currentSpeed = Mathf.Min(currentSpeed, maxSpeed);
+            currentSpeed += speedIncrement * Time.deltaTime;
+            currentSpeed = Mathf.Min(currentSpeed, targetSpeed);
         }
+        // Gradually decrease speed if already past the target speed
+        else if (currentSpeed > targetSpeed)
+        {
+            currentSpeed -= speedIncrement * Time.deltaTime;
+            currentSpeed = Mathf.Max(currentSpeed, targetSpeed);
+        }
+
+        rb.velocity = new Vector2(move.x * currentSpeed, rb.velocity.y);
     }
 
     private void Jump()
@@ -110,8 +119,21 @@ public class MovementController : MonoBehaviour
 
     private void flip()
     {
-        if (move.x < -0.01f) transform.localScale = new Vector3(-2.5f, 2.5f, 2.5f);
-        if (move.x > 0.01f) transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
+        if (move.x < -0.01f)
+        {
+            transform.localScale = new Vector3(-2.5f, 2.5f, 2.5f);
+            RefreshSpeed();
+        }
+        if (move.x > 0.01f)
+        {
+            transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
+            RefreshSpeed();
+        }
+    }
+
+    private void RefreshSpeed()
+    {
+        currentSpeed = initialSpeed;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -133,6 +155,13 @@ public class MovementController : MonoBehaviour
     private void UpdateAnimator()
     {
         animator.SetFloat("Speed", Mathf.Abs(move.x));
+
+        // Add the following condition to set the Speed parameter to 0 when not moving and not jumping
+        if (Mathf.Abs(move.x) < 0.01f && !isJumping)
+        {
+            animator.SetFloat("Speed", 0f);
+        }
+
         animator.SetBool("IsJumping", isJumping);
     }
 }
