@@ -986,7 +986,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 79, y: -181}
+  m_AnchoredPosition: {x: 300, y: -181}
   m_SizeDelta: {x: 340.802, y: 79.4311}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &955573581380117198
@@ -1009,8 +1009,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Movement : A (Left) \n\t           D (Right)\n                     Space
-    (jump)\n"
+  m_text: just jump bro
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: be21f63c9a777404b8f749d94c09812c, type: 2}
   m_sharedMaterial: {fileID: 6673287384113923495, guid: be21f63c9a777404b8f749d94c09812c, type: 2}
@@ -1789,7 +1788,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &955573582081464796
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2476,7 +2475,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &955573583431436185
 RectTransform:
   m_ObjectHideFlags: 0
