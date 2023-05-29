@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Collectible
   - SpeedBoost
+  - FallTrigger
   layers:
   - Default
   - TransparentFX
