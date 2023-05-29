@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 726b1416ab1aa4948b79bd9e02112554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.5
+  speed: 0.02
 --- !u!23 &164520485
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -512,7 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 726b1416ab1aa4948b79bd9e02112554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.5
+  speed: 0.05
 --- !u!23 &378318161
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -899,7 +899,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 726b1416ab1aa4948b79bd9e02112554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.5
+  speed: 0.15
 --- !u!23 &736427419
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1045,6 +1045,7 @@ GameObject:
   - component: {fileID: 783015312}
   - component: {fileID: 783015311}
   - component: {fileID: 783015320}
+  - component: {fileID: 783015321}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1206,7 +1207,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 783015310}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.154548, y: -2.0400784, z: 0}
+  m_LocalPosition: {x: 2.46, y: -1.41, z: 0}
   m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1221,7 +1222,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 783015310}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 862152b000d8cb0489b9d5db528877ce, type: 3}
   m_Name: 
@@ -1233,6 +1234,25 @@ MonoBehaviour:
   initialSpeed: 8
   speedIncrement: 0.5
   maxSpeed: 15
+--- !u!114 &783015321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783015310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc67551d52e246d41babbf39d5f73eaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: 5
+  jumpHoldForce: 2.5
+  jumpHoldDuration: 0.1
+  maxJumps: 2
+  initialSpeed: 3.5
+  speedIncrement: 2.5
+  maxSpeed: 8
 --- !u!1 &809895109
 GameObject:
   m_ObjectHideFlags: 0
@@ -1354,7 +1374,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &843259540
 Transform:
   m_ObjectHideFlags: 0
@@ -1508,7 +1528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 726b1416ab1aa4948b79bd9e02112554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.5
+  speed: 0.25
 --- !u!23 &957572945
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1592,7 +1612,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &971917261
 Transform:
   m_ObjectHideFlags: 0
@@ -1719,11 +1739,11 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1
+    width: 0.66
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 46.70225
   orthographic: 1
   orthographic size: 10
   m_Depth: -1
@@ -1749,7 +1769,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1170755075}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18.6, y: 3.4999998, z: -10}
+  m_LocalPosition: {x: 15.09, y: 3.4999998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1763,7 +1783,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1170755075}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afd1e2eb499740e4390811c22dc35b5a, type: 3}
   m_Name: 
@@ -7382,7 +7402,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0.45490196, g: 0.39215687, b: 0.32941177, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -12056,7 +12076,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1712510340}
   serializedVersion: 8
   lengthInSec: 1
-  simulationSpeed: 2
+  simulationSpeed: 1
   stopAction: 0
   cullingMode: 3
   ringBufferMode: 0
@@ -12237,7 +12257,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0.45490196, g: 0.39215687, b: 0.32941177, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -12675,15 +12695,15 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 4
+    type: 12
     angle: 23.1
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: 0, y: 0, z: 0}
-    m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 1, y: 1, z: 1}
+    m_Position: {x: -0.0000001283658, y: 0.00000007365284, z: 0}
+    m_Rotation: {x: -0.000000026680427, y: 0.52000004, z: 90.05985}
+    m_Scale: {x: 0.9999999, y: 0.9999999, z: 0.9999999}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -13317,7 +13337,7 @@ ParticleSystem:
     curve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.5707963
+      scalar: 0
       minScalar: 0.7853982
       maxCurve:
         serializedVersion: 2
@@ -16820,7 +16840,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1712510340}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.65, y: -0.894, z: -0.2}
+  m_LocalPosition: {x: -0.502, y: -0.823, z: -0.2}
   m_LocalScale: {x: 1.45, y: 1.45, z: 1.45}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -16851,12 +16871,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1911129984}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b207000215cdf8a418c7f57094e5e667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parallaxSpeed: 0.0129
+  parallaxSpeed: 0.02
 --- !u!4 &1911129986
 Transform:
   m_ObjectHideFlags: 0
@@ -17226,7 +17246,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2134869648}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.1945, y: 14.2625, z: 96.9}
+  m_LocalPosition: {x: 3.1945, y: 12.51, z: 96.9}
   m_LocalScale: {x: 558.645, y: 3.5831382, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
