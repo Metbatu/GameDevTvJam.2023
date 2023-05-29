@@ -8,6 +8,7 @@ TagManager:
   - Collectible
   - SpeedBoost
   - FallTrigger
+  - Obstacle
   layers:
   - Default
   - TransparentFX
